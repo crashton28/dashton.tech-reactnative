@@ -19,16 +19,17 @@ export default function App() {
     return (
         <View style={styles.container}>
             <Header height={headerHeight}/>
-            <ScrollView
-            style={{
-                width: "100%",
-                height : '100%'
-            }}
-            scrollEventThrottle={10}
-            onScroll={Animated.event(
-                [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-                { useNativeDriver: false })
-            }
+            <Animated.ScrollView
+                bounces={false}
+                style={{
+                    width: "100%",
+                    height : '100%'
+                }}
+                scrollEventThrottle={1}
+                onScroll={Animated.event(
+                    [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+                    { useNativeDriver: false }
+                )}
             >
                 <SafeAreaView>
                     <View style={{
@@ -37,7 +38,7 @@ export default function App() {
                         <Content />
                     </View>
                 </SafeAreaView>
-            </ScrollView>
+            </Animated.ScrollView>
             <StatusBar style="auto" />
         </View>
     );

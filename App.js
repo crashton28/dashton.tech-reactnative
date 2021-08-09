@@ -10,7 +10,9 @@ export default function App() {
         await Promise.all([
             Font.loadAsync({
                 'Lato-Light': require("./assets/fonts/Lato-Light.ttf"),
+                'Lato-LightItalic': require("./assets/fonts/Lato-LightItalic.ttf"),
                 'Lato-Black': require("./assets/fonts/Lato-Black.ttf"),
+                'Lato-BlackItalic': require("./assets/fonts/Lato-BlackItalic.ttf"),
             }),
         ]);
     }

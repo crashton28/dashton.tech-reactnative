@@ -1,12 +1,13 @@
 import React from 'react';
 import { StyleSheet, Animated, SafeAreaView, View, Image } from 'react-native';
 import Logo from './Logo';
+import CONSTANTS from '../constants';
 
 
 export default function Header(props) {
     return (
         <Animated.View style={{
-            backgroundColor : '#FF665A',
+            backgroundColor : CONSTANTS.COLOR_PRIMARY,
             position : 'absolute',
             shadowOffset: {width: 0, height: 2},
             shadowOpacity: .3,
