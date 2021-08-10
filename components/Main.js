@@ -1,10 +1,9 @@
 import React, { useRef } from "react";
-import { Animated, StyleSheet, View, ScrollView, Text } from "react-native";
+import { Animated, StyleSheet, View, ScrollView } from "react-native";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from "expo-status-bar";
 import Header from "./Header";
 import Content from "./Content";
-
 
 export default function App() {
     const insets = useSafeAreaInsets();
@@ -66,7 +65,7 @@ export default function App() {
                     <Content />
                 </View>
             </ScrollView>
-            {/* <StatusBar style="auto" /> */}
+            <StatusBar style="auto" />
         </View>
     );
 }
