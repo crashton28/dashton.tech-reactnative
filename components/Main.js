@@ -1,43 +1,48 @@
 import React, { useRef } from "react";
-import { Animated, StyleSheet, Text, SafeAreaView, ScrollView, View } from "react-native";
+import { Animated, StyleSheet, View } from "react-native";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from "expo-status-bar";
 import Header from "./Header";
 import Content from "./Content";
 
-const HEADER_EXPANDED_HEIGHT = 200;
-const HEADER_COLLAPSED_HEIGHT = 100;
+const HEADER_IMAGE_HEIGHT = 300;
 
 export default function App() {
+    const insets = useSafeAreaInsets();
 
     const scrollY = useRef(new Animated.Value(0)).current;
-    const headerHeight = scrollY.interpolate({
-        inputRange: [0, HEADER_EXPANDED_HEIGHT-HEADER_COLLAPSED_HEIGHT],
-        outputRange: [HEADER_EXPANDED_HEIGHT, HEADER_COLLAPSED_HEIGHT],
+    const translateY = scrollY.interpolate({
+        inputRange: [0, HEADER_IMAGE_HEIGHT],
+        outputRange: [-insets.top, -1 * HEADER_IMAGE_HEIGHT],
         extrapolate: 'clamp'
+    });
+    const imageOpacity = scrollY.interpolate({
+        inputRange: [0, HEADER_IMAGE_HEIGHT],
+        outputRange : [1, 0],
+        extrapolate : 'clamp'
     });
 
     return (
         <View style={styles.container}>
-            <Header height={headerHeight}/>
             <Animated.ScrollView
                 bounces={false}
                 style={{
                     width: "100%",
                     height : '100%'
                 }}
-                scrollEventThrottle={1}
+                scrollEventThrottle={16}
                 onScroll={Animated.event(
                     [{ nativeEvent: { contentOffset: { y: scrollY } } }],
                     { useNativeDriver: false }
                 )}
+                stickyHeaderIndices={[0]}
             >
-                <SafeAreaView>
-                    <View style={{
-                        paddingTop : HEADER_EXPANDED_HEIGHT,
-                    }}>
-                        <Content />
-                    </View>
-                </SafeAreaView>
+                <Header
+                    translateY={translateY}
+                    imageOpacity={imageOpacity}
+                    imageHeight={HEADER_IMAGE_HEIGHT}
+                />
+                <Content />
             </Animated.ScrollView>
             <StatusBar style="auto" />
         </View>

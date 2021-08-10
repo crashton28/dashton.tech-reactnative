@@ -1,45 +1,50 @@
 import React from 'react';
-import { StyleSheet, Animated, SafeAreaView, View, Image } from 'react-native';
+import { StyleSheet, Animated, Image } from 'react-native';
+import SafeAreaView from 'react-native-safe-area-view';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Logo from './Logo';
 import CONSTANTS from '../constants';
 
 
 export default function Header(props) {
+    const insets = useSafeAreaInsets();
     return (
         <Animated.View style={{
             backgroundColor : CONSTANTS.COLOR_PRIMARY,
-            position : 'absolute',
             shadowOffset: {width: 0, height: 2},
             shadowOpacity: .3,
             shadowRadius : 2,
             top : 0,
+            transform: [{translateY: props.translateY}],
             width : '100%',
             zIndex : 2
         }}>
-            {/* <Image
+            <Animated.Image
                 source={{
                     uri: 'https://res.cloudinary.com/crashton28/image/upload/v1623200508/dashton.tech/pics/biopic_2x_imneow.jpg'
                 }}
                 style={{
-                    height: 200,
+                    height: props.imageHeight || 0,
+                    // marginTop : insets.top * -1,
+                    transform : [{translateY: insets.top || 0}],
+                    opacity : props.imageOpacity || 1,
                     width: '100%'
                 }}
-            /> */}
-            <SafeAreaView>
+            />
+            <SafeAreaView forceInset={{ top: 'always', bottom: 'never' }}>
                 <Animated.View style={{
                     alignItems: 'center',
                     flexDirection: 'row',
-                    height : props.height || 0,
                     padding : 20,
                     justifyContent: 'space-between'
                 }}>
-                    <Logo />
-                    <Image
+                    <Logo/>
+                    {/* <Image
                         source={{
                             uri: 'https://res.cloudinary.com/crashton28/image/upload/v1623200508/dashton.tech/pics/biopic_2x_imneow.jpg'
                         }}
                         style={styles.avatar}
-                    />
+                    /> */}
                 </Animated.View>
             </SafeAreaView>
         </Animated.View>

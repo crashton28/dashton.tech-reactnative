@@ -2,9 +2,9 @@ import React from 'react';
 import { StyleSheet, Text, Animated, View, SafeAreaView, Image } from 'react-native';
 import Svg, { G, Path } from 'react-native-svg';
 
-export default function Logo() {
+export default function Logo(props) {
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, props.style]}>
             <Svg height="64" width="70" viewBox="0 0 220 200">
                 <G id="Layer_2" data-name="Layer 2">
                     <G id="Layer_1-2" data-name="Layer 1">

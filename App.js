@@ -1,6 +1,7 @@
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 import React, { useState } from "react";
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Main from "./components/Main";
 
 export default function App() {
@@ -26,6 +27,6 @@ export default function App() {
             />
         );
     } else {
-        return <Main />;
+        return <SafeAreaProvider><Main /></SafeAreaProvider>;
     }
 }
