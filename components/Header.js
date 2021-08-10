@@ -9,16 +9,20 @@ import CONSTANTS from '../constants';
 export default function Header(props) {
     const insets = useSafeAreaInsets();
     return (
-        <Animated.View style={{
-            backgroundColor : CONSTANTS.COLOR_PRIMARY,
-            shadowOffset: {width: 0, height: 2},
-            shadowOpacity: .3,
-            shadowRadius : 2,
-            top : 0,
-            transform: [{translateY: props.translateY}],
-            width : '100%',
-            zIndex : 2
-        }}>
+        <Animated.View
+            pointerEvents="none"
+            style={{
+                backgroundColor : CONSTANTS.COLOR_PRIMARY,
+                position : 'absolute',
+                shadowOffset: {width: 0, height: 2},
+                shadowOpacity: .3,
+                shadowRadius : 2,
+                top : 0,
+                transform: [{translateY: props.translateY}],
+                width : '100%',
+                zIndex : 2
+            }}
+        >
             <Animated.Image
                 source={{
                     uri: 'https://res.cloudinary.com/crashton28/image/upload/v1623200508/dashton.tech/pics/biopic_2x_imneow.jpg'
@@ -36,27 +40,26 @@ export default function Header(props) {
                     alignItems: 'center',
                     flexDirection: 'row',
                     padding : 20,
+                    height : props.titleHeight,
                     justifyContent: 'space-between'
                 }}>
                     <Logo/>
-                    {/* <Image
+                    <Animated.Image
                         source={{
                             uri: 'https://res.cloudinary.com/crashton28/image/upload/v1623200508/dashton.tech/pics/biopic_2x_imneow.jpg'
                         }}
-                        style={styles.avatar}
-                    /> */}
+                        style={{
+                            borderWidth: 2,
+                            borderColor: '#fff',
+                            width: 70,
+                            height: 70,
+                            borderRadius: 40,
+                            opacity : props.thumbOpacity,
+                            transform: [{translateX: props.thumbTranslateX}]
+                        }}
+                    />
                 </Animated.View>
             </SafeAreaView>
         </Animated.View>
     );
 }
-
-const styles = StyleSheet.create({
-    avatar : {
-        borderWidth: 2,
-        borderColor: '#fff',
-        width: 70,
-        height: 70,
-        borderRadius: 40,
-    },
-})

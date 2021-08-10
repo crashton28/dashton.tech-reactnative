@@ -6,7 +6,7 @@ import Portfolio from './sections/Portfolio';
 
 export default function Content() {
     return (
-        <View>
+        <View style={{flex: 1}}>
             <View style={{padding : 20}}>
                 <Text style={styles.main}>
                     <Text style={{
@@ -30,7 +30,8 @@ export default function Content() {
 const styles = StyleSheet.create({
     main : {
         fontFamily : 'Lato-LightItalic',
-        fontSize : 20
+        fontSize : 20,
+        marginVertical : 20,
     },
     i : {
         fontStyle : 'italic',
