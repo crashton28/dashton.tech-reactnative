@@ -1,10 +1,12 @@
 import React, { useRef } from 'react';
-import { StyleSheet, Text, View, Animated, Dimensions, Image } from 'react-native';
+import { StyleSheet, Text, View, SectionList, Image, Animated, Dimensions } from 'react-native';
 import orderBy from 'lodash/orderBy';
 import CONSTANTS from '../../constants';
 import Section from '../Section';
+import { SvgCssUri } from 'react-native-svg';
 
 import DATA from '../../data/experience';
+import Highlights from '../Highlights';
 
 const getYear = (date) => {
     let newDate = new window.Date(date);
@@ -36,7 +38,40 @@ export default function Experience() {
                             </Text>
                         </View>
                         <View style={styles.details}>
-                            <Text>{company.employer.name}</Text>
+                            <View style={styles.header}>
+                                <View style={{flexShrink : 1}}>
+                                    <Text style={styles.employer}>{company.employer.name}</Text>
+                                    <Text style={styles.location}>{company.employer.location}</Text>
+                                </View>
+                                <SvgCssUri
+                                    height={40}
+                                    width="100"
+                                    fill="#000"
+                                    uri={company.employer.logo}
+                                />
+                            </View>
+                            <Text style={styles.title}>{company.title}</Text>
+                            <Text style={styles.description}>{company.description}</Text>
+                            {company.highlights && <Highlights data={company.highlights} />}
+                            {company.positions && (
+                                <View>
+                                    {company.positions.map((position, idx) => (
+                                        <View>
+                                            <View style={{marginTop: 20}}>
+                                                <Text style={styles.timeframeTextAlt}>
+                                                    <Text style={styles.year}>{getYear(company.date.from)}</Text>
+                                                    <Text> - </Text>
+                                                    {company.date.to ? (
+                                                        <Text style={styles.year}>{getYear(company.date.to)}</Text>
+                                                    ) : <Text style={styles.year}>Today</Text>}
+                                                </Text>
+                                                <Text>{position.title}</Text>
+                                            </View>
+                                            {position.highlights && <Highlights data={position.highlights} />}
+                                        </View>
+                                    ))}
+                                </View>
+                            )}
                         </View>
                     </View>
                 )
@@ -47,7 +82,10 @@ export default function Experience() {
 
 const styles = StyleSheet.create({
     container : {
+        flex : 1,
+        flexDirection : 'column',
         paddingVertical : 20,
+        fontFamily : 'Lato-Light',
     },
     timeframe : {
         backgroundColor : CONSTANTS.COLOR_PRIMARY,
@@ -69,6 +107,35 @@ const styles = StyleSheet.create({
         fontFamily : 'Lato-Black',
     },
     details : {
+        flex : 1,
+        flexDirection : 'column',
         padding : 20
+    },
+    employer : {
+        fontFamily : 'Lato-Black',
+        fontSize : 20
+    },
+    location : {
+        fontFamily : 'Lato-Light',
+        fontSize : 16
+    },
+    header : {
+        flex : 1,
+        flexDirection : 'row',
+        justifyContent : 'space-between',
+        width : '100%'
+    },
+    title : {
+        color : CONSTANTS.COLOR_PRIMARY,
+        fontFamily : 'Lato-Black',
+        fontSize : 24,
+        marginVertical : 20,
+    },
+    description : {
+        fontFamily : 'Lato-Light',
+        fontSize : 20,
+    },
+    timeframeTextAlt : {
+        textTransform : 'uppercase',
     }
 });
