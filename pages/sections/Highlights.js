@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Animated, Dimensions, Image } from 'react-nativ
 import { Video } from 'expo-av';
 import DATA from '../../data/projects';
 import CONSTANTS from '../../constants';
-import Section from '../Section';
+import Section from '../../components/Section';
 
 const SCREEN_WIDTH = Dimensions.get('screen').width;
 const ITEM_SIZE = SCREEN_WIDTH-100;

@@ -1,8 +1,19 @@
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 import React, { useState } from "react";
+import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Main from "./components/Main";
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import Navigation from './components/Navigation';
+
+import ROUTES from './routes';
+
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+const Tab = createBottomTabNavigator();
+
+import { createStackNavigator } from '@react-navigation/stack';
+const Stack = createStackNavigator();
 
 export default function App() {
     const [loaded, setLoaded] = useState(false);
@@ -27,6 +38,18 @@ export default function App() {
             />
         );
     } else {
-        return <SafeAreaProvider><Main /></SafeAreaProvider>;
+        return (
+            <NavigationContainer>
+                <SafeAreaProvider>
+                    <Tab.Navigator
+                        tabBar={(props) => <Navigation {...props} />}
+                        screenOptions={{headerShown: false}}
+                    >
+                        {ROUTES.map((route, idx) => <Stack.Screen key={idx} name={route.name} component={route.component} />)}
+                    </Tab.Navigator>
+                    <StatusBar style="auto" />
+                </SafeAreaProvider>
+            </NavigationContainer>
+        );
     }
 }

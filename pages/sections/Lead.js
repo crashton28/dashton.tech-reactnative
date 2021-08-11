@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import P from '../content/P';
-import H1 from '../content/H1';
+import P from '../../components/content/P';
+import H1 from '../../components/content/H1';
 
 export default function Lead() {
     return (

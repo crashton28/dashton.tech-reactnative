@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import { Animated, StyleSheet, View, ScrollView } from "react-native";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { StatusBar } from "expo-status-bar";
-import Header from "./Header";
-import Content from "./Content";
+import Header from "../components/Header";
+import Lead from './sections/Lead';
+import Highlights from './sections/Highlights';
 
 export default function App() {
     const insets = useSafeAreaInsets();
@@ -62,10 +62,10 @@ export default function App() {
                 )}
             >
                 <View style={{ paddingTop : HEADER_HEIGHT_EXPANDED }} >
-                    <Content />
+                    <Lead />
+                    <Highlights />
                 </View>
             </ScrollView>
-            <StatusBar style="auto" />
         </View>
     );
 }
