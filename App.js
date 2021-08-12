@@ -17,6 +17,17 @@ const Stack = createStackNavigator();
 
 export default function App() {
     const [loaded, setLoaded] = useState(false);
+    const [showNav, setShowNav] = useState(true);
+    const [scrollY, setScrollY] = useState(0);
+
+    const updateScroll = (newScrollY) => {
+        if (newScrollY > scrollY) {
+            setShowNav(false);
+        } else {
+            setShowNav(true);
+        }
+        setScrollY(newScrollY);
+    }
 
     async function loadResourcesAsync() {
         await Promise.all([
@@ -42,10 +53,17 @@ export default function App() {
             <NavigationContainer>
                 <SafeAreaProvider>
                     <Tab.Navigator
-                        tabBar={(props) => <Navigation {...props} />}
+                        tabBar={(props) => <Navigation {...props} showNav={showNav}/>}
                         screenOptions={{headerShown: false}}
                     >
-                        {ROUTES.map((route, idx) => <Stack.Screen key={idx} name={route.name} component={route.component} />)}
+                        {ROUTES.map((route, idx) => {
+                            const Component = route.component
+                            return (
+                                <Tab.Screen key={idx} name={route.name} >
+                                    {(props) => <Component {...props} updateScroll={updateScroll} />}
+                                </Tab.Screen>
+                            )
+                        })}
                     </Tab.Navigator>
                     <StatusBar style="auto" />
                 </SafeAreaProvider>

@@ -24,9 +24,10 @@ export default function Header(props) {
             }}
         >
             <Animated.Image
-                source={{
-                    uri: 'https://res.cloudinary.com/crashton28/image/upload/v1623200508/dashton.tech/pics/biopic_2x_imneow.jpg'
-                }}
+                source = {require('../assets/biopic_2x.jpg')}
+                // source={{
+                //     uri: 'https://res.cloudinary.com/crashton28/image/upload/v1623200508/dashton.tech/pics/biopic_2x_imneow.jpg'
+                // }}
                 style={{
                     height: props.imageHeight || 0,
                     // marginTop : insets.top * -1,

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, SectionList, Image, Animated, Dimensions } from 'react-native';
 import orderBy from 'lodash/orderBy';
 import CONSTANTS from '../constants';
@@ -18,10 +18,23 @@ const getMonth = (date) => {
     return newDate.toLocaleString('en-us', { month: 'short' });
 }
 
-export default function Experience() {
+export default function Experience(props) {
+
     let DATA_ORDERED = orderBy(DATA, ['date.from'], ['desc','desc']);
+
+    const [scrollY, setScrollY] = useState(0);
+    useEffect(()=>{
+        props.updateScroll(scrollY);
+    }, [scrollY]);
+
     return (
-        <ScrollView>
+        <ScrollView
+            bounces={false}
+            scrollEventThrottle={16}
+            onScroll={event => {
+                setScrollY(event.nativeEvent.contentOffset.y)
+            }}
+        >
             <SafeAreaView forceInset={{ top: 'always', bottom: 'never' }}>
                 <Section title="Experience">
                 {DATA_ORDERED.map((company, idx) => {
